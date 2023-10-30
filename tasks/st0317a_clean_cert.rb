@@ -65,4 +65,4 @@ end
 
 puts results.to_json
 
-exit(results.values.select{|v| v != deprecation_msg}.all? { |v| v[:result] == 'Certificate removed' }) ? 0 : 1
+exit(results.values.reject { |v| v == deprecation_msg }.all? { |v| v[:result] == 'Certificate removed' }) ? 0 : 1
