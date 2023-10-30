@@ -45,7 +45,10 @@ def clean_cert(agent, cmd)
   }
 end
 
-results = {}
+deprecation_msg = "This task is deprecated and has been replaced by the certificate clean api, which provides the same functionality. This task will be removed in a future release.  Please see this module's README for more information"
+results = {
+  deprecation: deprecation_msg
+}
 agents = ENV['PT_agent_certnames'].split(',')
 
 agents.each do |agent|
@@ -62,4 +65,4 @@ end
 
 puts results.to_json
 
-exit(results.values.all? { |v| v[:result] == 'Certificate removed' }) ? 0 : 1
+exit(results.values.select{|v| v != deprecation_msg}.all? { |v| v[:result] == 'Certificate removed' }) ? 0 : 1
